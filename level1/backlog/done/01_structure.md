@@ -1,6 +1,6 @@
 # Python basic code structure
 
-Add a basic code structure. This includes:
+Add a basic code structure. This includes: *DONE*
 
 - `campersheaven` folder: the main package
 - `tests` folder
