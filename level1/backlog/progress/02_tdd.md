@@ -2,10 +2,10 @@
 
 Make the required tests fail:
 
-### `Engine` module:
+### `Engine` module: *DONE*
 
+- `test_insert_data` for `insert_data(data)`
 - `test_search` for `search(search_query)`
-- `test_insert_data` for `insert_data(json_path)`
 
 ### `View` module:
 
@@ -19,13 +19,13 @@ Make the required tests fail:
 
 ### `DictionaryStore` class:
 
-- `test_from_json` for `from_json(file)`
+- `test_insert_data` for `insert_data(data)`
 - `test_upsert` for `upsert(row_object)`
 - `test_filter` for `filter(filter_predicate)`
 
 ### `DataStoreAccess` module:
 
-- `test_populate_campers` for `populate_campers(json_file)`
+- `test_populate_campers` for `populate_campers(data)`
 - `test_find_campers_around` for `find_campers_around(position)`
 
 Out-of-scope (won't implement) but typically found here:
