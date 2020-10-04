@@ -3,7 +3,7 @@ import tempfile
 
 from campersheaven.engine import Engine
 from campersheaven.datastore import DictionaryStore
-from campersheaven.model import Camper
+from campersheaven.models import Camper
 
 
 class TestEngine(unittest.TestCase):

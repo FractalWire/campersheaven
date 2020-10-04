@@ -11,7 +11,7 @@ Make the required tests fail:
 
 - `test_render` for `render(campers)`
 
-### `Model` module:
+### `Models` module:
 
 - `test_updated_row` for `updated_row(row, changeset)`
 
