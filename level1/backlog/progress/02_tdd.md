@@ -15,7 +15,7 @@ Make the required tests fail:
 
 - `test_updated_row` for `updated_row(row, changeset)`
 
-#### `Camper` NamedTuple:
+#### `Camper` dataclass:
 
 ### `DictionaryStore` class:
 

@@ -1,5 +1,13 @@
-from typing import NamedTuple
+from dataclasses import dataclass, InitVar
 
 
-class Camper(NamedTuple):
-    pass
+@dataclass
+class Camper:
+    id: int
+    latitude: InitVar[float] = None
+    longitude: InitVar[float] = None
+    point: Point = None
+
+    def __post_init__(self):
+        if latitude and longitude:
+            self.point = Point(longitude, latitude)

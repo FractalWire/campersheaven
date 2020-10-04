@@ -32,10 +32,11 @@ class TestEngine(unittest.TestCase):
         self.assertDictEqual(
             self.ds.store,
             {
-                1: {
+                1: Camper(**{
+                    "id": 1,
                     "latitude": 44.8637834,
                     "longitude": -0.6211603
-                }
+                })
             })
 
     with open(f"{datadir}/search_one.json") as f:
