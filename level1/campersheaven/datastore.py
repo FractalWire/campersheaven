@@ -4,7 +4,7 @@ from dataclasses import replace
 
 if TYPE_CHECKING:
     from .models import ModelType, Camper
-    from .geometries import Position
+    from .geometries import Point
 
 
 class DictionaryStore:
@@ -31,7 +31,7 @@ class DictionaryStore:
         """Filter store content based on a predicate operating on every rows of
         the store.
         This allow SELECT-like operations with ease"""
-        return [item for item in self.store.values() if predicate(item)]
+        return [row for row in self.store.values() if predicate(row)]
 
 
 DataStore = Union[DictionaryStore]
@@ -43,15 +43,13 @@ class DataStoreAccess:
     @staticmethod
     def populate_campers(store: DataStore, data: Dict[str, Any]) -> None:
         """Populate data into store"""
-        # store.upsert_data(data)
-        pass
+        campers_data = data["campers"]
+        store.upsert_data(campers_data)
 
     @staticmethod
-    def find_campers_around(store: DataStore, position: Position) -> List[Camper]:
+    def find_campers_around(store: DataStore, position: Point) -> List[Camper]:
         """Find the campers in the store that are in a 2 degrees square bounding box
         around position"""
-        def filter_position(camper: Camper) -> bool:
-            bbox = position.bbox((-0.1, 0.1, -0.1, -0.1,))
-            return camper.position.within(bbox)
+        bbox = position.bbox((-0.1, 0.1, -0.1, 0.1,))
 
-        return store.filter(filter_position)
+        return store.filter(lambda camper: camper.point.within(bbox))

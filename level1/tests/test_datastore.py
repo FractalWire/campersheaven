@@ -96,7 +96,7 @@ class TestDictionaryStore(unittest.TestCase):
 
 class TestDataStoreAccess(unittest.TestCase):
     def setUp(self):
-        self.ds = DictionaryStore(DummyModel)
+        self.ds = DictionaryStore(Camper)
 
     def test_populate_campers(self):
         camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
@@ -107,33 +107,33 @@ class TestDataStoreAccess(unittest.TestCase):
 
     def test_find_campers_around_match(self):
         camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
-        camper2 = {"id": 1, "latitude": -1.0, "longitude": -1.0}
+        camper2 = {"id": 2, "latitude": -1.0, "longitude": -1.0}
         data = {"campers": [camper1, camper2]}
         DataStoreAccess.populate_campers(self.ds, data)
 
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(1.0, 1.0))
-        self.assertTrue(Camper(**camper1) in results)
+        self.assertListEqual([Camper(**camper1)], results)
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(1.09, 1.09))
-        self.assertTrue(Camper(**camper1) in results)
+        self.assertListEqual([Camper(**camper1)], results)
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(0.91, 0.91))
-        self.assertTrue(Camper(**camper1) in results)
+        self.assertListEqual([Camper(**camper1)], results)
 
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(1.09, 0.91))
-        self.assertTrue(Camper(**camper1) in results)
+        self.assertListEqual([Camper(**camper1)], results)
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(0.91, 1.09))
-        self.assertTrue(Camper(**camper1) in results)
+        self.assertListEqual([Camper(**camper1)], results)
 
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(-1.0, -1.0))
-        self.assertTrue(Camper(**camper2) in results)
+        self.assertListEqual([Camper(**camper2)], results)
         results = DataStoreAccess.find_campers_around(
             self.ds, Point(-1.09, -0.91))
-        self.assertTrue(Camper(**camper2) in results)
+        self.assertListEqual([Camper(**camper2)], results)
 
     def test_find_campers_around_nomatch(self):
         camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
