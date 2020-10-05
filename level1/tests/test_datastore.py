@@ -53,6 +53,11 @@ class TestDictionaryStore(unittest.TestCase):
         self.assertEqual(DummyModel(**changed_item),
                          self.ds.store[item["id"]])
 
+    def test_upsert_bad_row(self):
+        item = {"id": 1, "lav": "bla"}
+        with self.assertRaises(TypeError):
+            self.ds.upsert(item)
+
     def test_filter_false(self):
         item1 = {"id": 1, "val": "bla"}
         item2 = {"id": 2, "val": "lab"}
@@ -85,3 +90,51 @@ class TestDictionaryStore(unittest.TestCase):
         results = self.ds.filter(lambda row: row.val == "bla" or row.id == 3)
 
         self.assertTrue(all(asdict(item) in [item1, item3] for item in results))
+
+
+class TestDataStoreAccess(unittest.TestCase):
+    def setUp(self):
+        self.ds = DictionaryStore(DummyModel)
+
+    def test_populate_campers(self):
+        camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
+        data = {"campers": [camper1]}
+
+        populate_campers(self.ds, data)
+        self.assertDictEqual(self.ds.store, {1: campers(**camper1)})
+
+    def test_find_campers_around_match(self):
+        camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
+        camper2 = {"id": 1, "latitude": -1.0, "longitude": -1.0}
+        data = {"campers": [camper1, camper2]}
+        populate_campers(self.ds, data)
+
+        results = find_campers_around(self.ds, Position(1.0, 1.0))
+        self.assertTrue(Camper(**camper1) in results)
+        results = find_campers_around(self.ds, Position(1.09, 1.09))
+        self.assertTrue(Camper(**camper1) in results)
+        results = find_campers_around(self.ds, Position(0.91, 0.91))
+        self.assertTrue(Camper(**camper1) in results)
+
+        results = find_campers_around(self.ds, Position(1.09, 0.91))
+        self.assertTrue(Camper(**camper1) in results)
+        results = find_campers_around(self.ds, Position(0.91, 1.09))
+        self.assertTrue(Camper(**camper1) in results)
+
+        results = find_campers_around(self.ds, Position(-1.0, -1.0))
+        self.assertTrue(Camper(**camper2) in results)
+        results = find_campers_around(self.ds, Position(-1.09, -0.91))
+        self.assertTrue(Camper(**camper2) in results)
+
+    def test_find_campers_around_nomatch(self):
+        camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
+        camper2 = {"id": 1, "latitude": -1.0, "longitude": -1.0}
+        data = {"campers": [camper1, camper2]}
+        populate_campers(self.ds, data)
+
+        results = find_campers_around(self.ds, Position(0.0, 0.0))
+        self.assertListEqual(results, [])
+        results = find_campers_around(self.ds, Position(1.0, 0.0))
+        self.assertListEqual(results, [])
+        results = find_campers_around(self.ds, Position(0.0, 1.0))
+        self.assertListEqual(results, [])
