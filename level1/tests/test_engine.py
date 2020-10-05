@@ -1,4 +1,5 @@
 import unittest
+import json
 
 from campersheaven.engine import Engine
 from campersheaven.datastore import DictionaryStore
@@ -31,10 +32,10 @@ class TestEngine(unittest.TestCase):
         self.assertDictEqual(
             self.ds.store,
             {
-                1: Camper(**{
-                    "id": 1,
-                    "latitude": 44.8637834,
-                    "longitude": -0.6211603
+                3: Camper(**{
+                    "id": 3,
+                    "latitude": 38.7436883,
+                    "longitude": -9.1952226
                 })
             })
 
@@ -47,9 +48,9 @@ class TestEngine(unittest.TestCase):
         """Test search results in an empty store"""
         results = self.engine.search(self.search_one)
         with open(f"{self.datadir}/empty_results.json") as f:
-            self.assertEqual(
-                results,
-                f.read()
+            self.assertDictEqual(
+                json.loads(results),
+                json.loads(f.read())
             )
 
     def test_search_one(self):
@@ -57,9 +58,9 @@ class TestEngine(unittest.TestCase):
         self.engine.insert_data(self.correct_camper_data)
         results = self.engine.search(self.search_one)
         with open(f"{self.datadir}/results_one.json") as f:
-            self.assertEqual(
-                results,
-                f.read()
+            self.assertDictEqual(
+                json.loads(results),
+                json.loads(f.read())
             )
 
     def test_search_many(self):
@@ -67,7 +68,7 @@ class TestEngine(unittest.TestCase):
         self.engine.insert_data(self.correct_campers_data)
         results = self.engine.search(self.search_many)
         with open(f"{self.datadir}/results_many.json") as f:
-            self.assertEqual(
-                results,
-                f.read()
+            self.assertDictEqual(
+                json.loads(results),
+                json.loads(f.read())
             )
