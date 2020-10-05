@@ -15,7 +15,7 @@ Make the required tests fail:
 
 #### `Camper` dataclass:
 
-### `DictionaryStore` class:
+### `DictionaryStore` class: *DONE*
 
 - `test_upsert_data` for `upsert_data(data)`
 - `test_upsert` for `upsert(row_object)`
