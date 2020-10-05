@@ -10,6 +10,6 @@ class Camper:
     longitude: InitVar[float] = None
     point: Point = None
 
-    def __post_init__(self, latitude, longitude):
+    def __post_init__(self, latitude: float, longitude: float) -> None:
         if latitude and longitude:
             self.point = Point(longitude, latitude)

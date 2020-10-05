@@ -6,5 +6,5 @@ if TYPE_CHECKING:
 
 
 class View:
-    def render(campers: List[Camper]):
+    def render(campers: List[Camper]) -> ByteString:
         pass
