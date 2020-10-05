@@ -1,16 +1,20 @@
 from __future__ import annotations
-from typing import Dict, Any, TYPE_CHECKING
+from typing import Dict, Any, ByteString, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .models import Camper
+    from .datastore import DictionaryStore
 
 
 class Engine:
-    def __init__(self, store: Dict[int, Camper]):
-        self.store = store
+    """This class implement API-like interface for the camper search"""
 
-    def insert_data(self, data: Dict[str, Any]):
+    def __init__(self, store: DictionaryStore):
+        self.store: DictionaryStore = store
+
+    def insert_data(self, data: ByteString):
+        """Insert new data to the store used by the Engine"""
         pass
 
-    def search(self, search_query: Dict[str, Any]):
+    def search(self, search_query: ByteString):
+        """Search for matching campers based on a query"""
         pass

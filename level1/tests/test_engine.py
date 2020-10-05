@@ -1,5 +1,4 @@
 import unittest
-import tempfile
 
 from campersheaven.engine import Engine
 from campersheaven.datastore import DictionaryStore
