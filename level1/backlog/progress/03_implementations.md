@@ -18,7 +18,7 @@ Make the code pass the tests
 
 ### `Geometries` module
 
-#### `Point` NamedTuple
+#### `Point` NamedTuple *DONE*
 
-#### `BoundingBox` NamedTuple
+#### `BoundingBox` NamedTuple *DONE*
 
