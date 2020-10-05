@@ -15,23 +15,25 @@ Make the required tests fail:
 
 #### `Camper` dataclass:
 
-### `DictionaryStore` class: *DONE*
+### `DataStore` module :
+
+#### `DictionaryStore` class: *DONE*
 
 - `test_upsert_data` for `upsert_data(data)`
 - `test_upsert` for `upsert(row_object)`
 - `test_filter` for `filter(filter_predicate)`
 
-### `DataStoreAccess` module:
+#### `DataStoreAccess` module: *DONE*
 
-- `test_populate_campers` for `populate_campers(data)`
-- `test_find_campers_around` for `find_campers_around(position)`
+- `test_populate_campers` for `populate_campers(store, data)`
+- `test_find_campers_around` for `find_campers_around(store, position)`
 
 Out-of-scope (won't implement) but typically found here:
 
-- `test_add` for `add(camper)`
-- `test_get` for `get(camper_id)`
-- `test_modify` for `modify(camper_id, changes)`
-- `test_remove` for `remove(camper_id)`
+- `test_add` for `add(store, camper)`
+- `test_get` for `get(store, camper_id)`
+- `test_modify` for `modify(store, camper_id, changes)`
+- `test_remove` for `remove(store, camper_id)`
 
 ### `Geometries` module:
 

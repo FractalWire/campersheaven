@@ -2,7 +2,9 @@ from typing import Any
 import unittest
 from dataclasses import dataclass, asdict
 
-from campersheaven.datastore import DictionaryStore
+from campersheaven.datastore import DictionaryStore, DataStoreAccess
+from campersheaven.geometries import Point
+from campersheaven.models import Camper
 
 
 @dataclass
@@ -100,41 +102,51 @@ class TestDataStoreAccess(unittest.TestCase):
         camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
         data = {"campers": [camper1]}
 
-        populate_campers(self.ds, data)
-        self.assertDictEqual(self.ds.store, {1: campers(**camper1)})
+        DataStoreAccess.populate_campers(self.ds, data)
+        self.assertDictEqual(self.ds.store, {1: Camper(**camper1)})
 
     def test_find_campers_around_match(self):
         camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
         camper2 = {"id": 1, "latitude": -1.0, "longitude": -1.0}
         data = {"campers": [camper1, camper2]}
-        populate_campers(self.ds, data)
+        DataStoreAccess.populate_campers(self.ds, data)
 
-        results = find_campers_around(self.ds, Position(1.0, 1.0))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(1.0, 1.0))
         self.assertTrue(Camper(**camper1) in results)
-        results = find_campers_around(self.ds, Position(1.09, 1.09))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(1.09, 1.09))
         self.assertTrue(Camper(**camper1) in results)
-        results = find_campers_around(self.ds, Position(0.91, 0.91))
-        self.assertTrue(Camper(**camper1) in results)
-
-        results = find_campers_around(self.ds, Position(1.09, 0.91))
-        self.assertTrue(Camper(**camper1) in results)
-        results = find_campers_around(self.ds, Position(0.91, 1.09))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(0.91, 0.91))
         self.assertTrue(Camper(**camper1) in results)
 
-        results = find_campers_around(self.ds, Position(-1.0, -1.0))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(1.09, 0.91))
+        self.assertTrue(Camper(**camper1) in results)
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(0.91, 1.09))
+        self.assertTrue(Camper(**camper1) in results)
+
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(-1.0, -1.0))
         self.assertTrue(Camper(**camper2) in results)
-        results = find_campers_around(self.ds, Position(-1.09, -0.91))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(-1.09, -0.91))
         self.assertTrue(Camper(**camper2) in results)
 
     def test_find_campers_around_nomatch(self):
         camper1 = {"id": 1, "latitude": 1.0, "longitude": 1.0}
         camper2 = {"id": 1, "latitude": -1.0, "longitude": -1.0}
         data = {"campers": [camper1, camper2]}
-        populate_campers(self.ds, data)
+        DataStoreAccess.populate_campers(self.ds, data)
 
-        results = find_campers_around(self.ds, Position(0.0, 0.0))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(0.0, 0.0))
         self.assertListEqual(results, [])
-        results = find_campers_around(self.ds, Position(1.0, 0.0))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(1.0, 0.0))
         self.assertListEqual(results, [])
-        results = find_campers_around(self.ds, Position(0.0, 1.0))
+        results = DataStoreAccess.find_campers_around(
+            self.ds, Point(0.0, 1.0))
         self.assertListEqual(results, [])
