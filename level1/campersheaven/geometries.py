@@ -40,8 +40,10 @@ class Bbox(NamedTuple):
         """Wether or not the Bbox is a valid one"""
         srid_xmin, srid_xmax, srid_ymin, srid_ymax = SRID_4326_BOUNDARIES
         return all([
-            (srid_xmin <= self.xmin <= srid_xmax),
-            (srid_xmin <= self.xmax <= srid_xmax),
-            (srid_ymin <= self.ymin <= srid_ymax),
-            (srid_ymin <= self.ymax <= srid_ymax)
+            self.xmin <= self.xmax,
+            self.ymin <= self.ymax,
+            srid_xmin <= self.xmin <= srid_xmax,
+            srid_xmin <= self.xmax <= srid_xmax,
+            srid_ymin <= self.ymin <= srid_ymax,
+            srid_ymin <= self.ymax <= srid_ymax
         ])

@@ -53,29 +53,28 @@ class TestPoint(unittest.TestCase):
 
     def test_within_true(self):
         bbox = Bbox(-0.1, 0.1, -0.1, 0.1)
-
         p = Point(0.0, 0.0)
         self.assertTrue(p.within(bbox))
 
-        p = Point(1.0, 1.0)
+        p = Point(0.1, 0.1)
         self.assertTrue(p.within(bbox))
-        p = Point(1.0, -1.0)
+        p = Point(0.1, -0.1)
         self.assertTrue(p.within(bbox))
-        p = Point(-1.0, -1.0)
+        p = Point(-0.1, -0.1)
         self.assertTrue(p.within(bbox))
-        p = Point(-1.0, 1.0)
+        p = Point(-0.1, 0.1)
         self.assertTrue(p.within(bbox))
 
-    def test_within_true(self):
+    def test_within_false(self):
         bbox = Bbox(-0.1, 0.1, -0.1, 0.1)
 
-        p = Point(1.1, 1.0)
+        p = Point(0.2, 0.0)
         self.assertFalse(p.within(bbox))
-        p = Point(1.1, -1.0)
+        p = Point(0.2, -0.0)
         self.assertFalse(p.within(bbox))
-        p = Point(-1.0, -1.1)
+        p = Point(-0.0, -0.2)
         self.assertFalse(p.within(bbox))
-        p = Point(-1.0, 1.1)
+        p = Point(-0.0, 0.2)
         self.assertFalse(p.within(bbox))
 
 
@@ -87,7 +86,13 @@ class TestBbox(unittest.TestCase):
         bbox = Bbox(-180.0, 180.0, -90.0, 90.0)
         self.assertTrue(bbox.valid())
 
-    def test_valid_bbox_true(self):
+    def test_valid_bbox_false(self):
+        bbox = Bbox(180.0, -180.0, -90.0, 90.0)
+        self.assertFalse(bbox.valid())
+
+        bbox = Bbox(-180.0, 180.0, 90.0, -90.0)
+        self.assertFalse(bbox.valid())
+
         bbox = Bbox(-181.0, 180.0, -90.0, 90.0)
         self.assertFalse(bbox.valid())
 
