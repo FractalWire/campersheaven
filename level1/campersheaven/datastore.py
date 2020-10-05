@@ -1,9 +1,9 @@
 from __future__ import annotations
-from typing import List, Dict, Any, Callable
+from typing import List, Dict, Any, Callable, TYPE_CHECKING
 from dataclasses import replace
 
-
-ModelType = Any
+if TYPE_CHECKING:
+    from .models import ModelType
 
 
 class DictionaryStore:
