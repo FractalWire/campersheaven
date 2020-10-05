@@ -9,7 +9,9 @@ class TestView(unittest.TestCase):
     datadir = "tests/data"
 
     def test_render_no_campers(self):
-        results = View.render([])
+        results = View.render([
+            (1, [])
+        ])
         with open(f"{self.datadir}/empty_results.json") as f:
             self.assertEqual(
                 json.loads(results),

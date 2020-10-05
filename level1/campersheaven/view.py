@@ -11,6 +11,8 @@ SearchCampersResults = List[SearchCampersResult]
 class View:
     @classmethod
     def render(cls, search_campersresults: SearchCampersResults) -> ByteString:
+        """Render the search view based on search_id and campersresults
+        associated to this search"""
         return json.dumps(cls._render_many(search_campersresults))
 
     @classmethod
