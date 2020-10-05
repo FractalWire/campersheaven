@@ -8,11 +8,11 @@ Make the code pass the tests
 
 ### `Models` module
 
-#### `Camper` dataclass
+#### `Camper` dataclass *DONE*
 
 ### `DataStore` module
 
-#### `DictionaryStore` class
+#### `DictionaryStore` class *DONE*
 
 #### `DataStoreAccess` module
 

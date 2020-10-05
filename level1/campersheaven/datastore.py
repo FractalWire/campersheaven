@@ -16,7 +16,8 @@ class DictionaryStore:
 
     def upsert_data(self, data: List[Dict[str, Any]]) -> None:
         """Upsert data to the store, i.e. insert if id does not exists, update otherwise"""
-        pass
+        for row in data:
+            self.upsert(row)
 
     def upsert(self, row: Dict[str, Any]) -> None:
         """Upsert row to the store, i.e. insert if id does not exists, update otherwise"""
@@ -30,7 +31,7 @@ class DictionaryStore:
         """Filter store content based on a predicate operating on every rows of
         the store.
         This allow SELECT-like operations with ease"""
-        return [item for item in self.store if predicate(item)]
+        return [item for item in self.store.values() if predicate(item)]
 
 
 DataStore = Union[DictionaryStore]
