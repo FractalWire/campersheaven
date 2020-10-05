@@ -7,19 +7,17 @@ Make the required tests fail:
 - `test_insert_data` for `insert_data(data)`
 - `test_search` for `search(search_query)`
 
-### `View` module:
+### `View` module: *DONE*
 
 - `test_render` for `render(campers)`
 
 ### `Models` module:
 
-- `test_updated_row` for `updated_row(row, changeset)`
-
 #### `Camper` dataclass:
 
 ### `DictionaryStore` class:
 
-- `test_insert_data` for `insert_data(data)`
+- `test_upsert_data` for `upsert_data(data)`
 - `test_upsert` for `upsert(row_object)`
 - `test_filter` for `filter(filter_predicate)`
 
