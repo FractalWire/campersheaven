@@ -1,5 +1,7 @@
 import unittest
 
+from campersheaven.geometries import Point, Bbox
+
 
 class TestPoint(unittest.TestCase):
     def test_valid_point_true(self):
