@@ -1,9 +1,11 @@
 {
-        "searches": [
-            {
-                "id": 1,
-                "latitude": 38.7436883,
-                "longitude": -9.1952226
-            }
-        ]
-    }
+    "searches": [
+        {
+            "id": 1,
+            "latitude": 38.7436883,
+            "longitude": -9.1952226,
+            "start_date": "2019-08-01",
+            "end_date": "2019-08-06"
+        }            
+    ]
+}

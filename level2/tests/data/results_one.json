@@ -4,7 +4,8 @@
             "search_id": 1,
             "search_results": [
                 {
-                    "camper_id": 3
+                    "camper_id": 3,
+                    "price": 513.0
                 }
             ]
         }
