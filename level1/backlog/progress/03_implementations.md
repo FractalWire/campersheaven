@@ -4,7 +4,7 @@ Make the code pass the tests
 
 ### `Engine` module
 
-### `View` module
+### `View` module *DONE*
 
 ### `Models` module
 
@@ -14,7 +14,7 @@ Make the code pass the tests
 
 #### `DictionaryStore` class *DONE*
 
-#### `DataStoreAccess` module
+#### `DataStoreAccess` module *DONE*
 
 ### `Geometries` module
 
