@@ -22,7 +22,8 @@ class TestView(unittest.TestCase):
         camper3 = Camper(**{
             "id": 3,
             "latitude": 38.7436883,
-            "longitude": -9.1952226
+            "longitude": -9.1952226,
+            "price_per_day": 0.0
         })
         results = View.render([
             (1, [camper3])
@@ -37,17 +38,20 @@ class TestView(unittest.TestCase):
         camper1 = Camper(**{
             "id": 1,
             "latitude": 44.8637834,
-            "longitude": -0.6211603
+            "longitude": -0.6211603,
+            "price_per_day": 0.0
         })
         camper2 = Camper(**{
             "id": 2,
             "latitude": 44.8313035,
-            "longitude": -0.7169664
+            "longitude": -0.7169664,
+            "price_per_day": 0.0
         })
         camper3 = Camper(**{
             "id": 3,
             "latitude": 38.7436883,
-            "longitude": -9.1952226
+            "longitude": -9.1952226,
+            "price_per_day": 0.0
         })
         results = View.render([
             (1, [camper3]),

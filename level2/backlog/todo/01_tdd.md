@@ -10,7 +10,7 @@ Make the required tests fail:
 
 ### `Models` module:
 
-#### `Camper` dataclass:
+#### `Camper` dataclass: *DONE*
 
 - `test_search_price` for `search_price(search)`
 
