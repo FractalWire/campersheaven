@@ -37,13 +37,13 @@ Out-of-scope (won't implement) but typically found here:
 
 ### `Geometries` module:
 
-#### `Point` NamedTuple
+#### `Point` NamedTuple *DONE*
 
 - `test_valid_point` for `valid()`
 - `test_bounding_box` for `bbox(bbox_diff)`
 - `test_within` for `within(bbox)`
 
-#### `BoundingBox` NamedTuple
+#### `BoundingBox` NamedTuple *DONE*
 
 - `test_valid_bbox` for `valid()`
 
