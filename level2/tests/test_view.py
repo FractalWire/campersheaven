@@ -2,15 +2,22 @@ import unittest
 import json
 
 from campersheaven.view import View
-from campersheaven.models import Camper
+from campersheaven.models import Camper, Search
 
 
 class TestView(unittest.TestCase):
     datadir = "tests/data"
 
+    with open(f"{datadir}/correct_campers.json") as f:
+        j = json.load(f)
+        camper1, camper2, camper3 = [Camper(**c) for c in j["campers"]]
+    with open(f"{datadir}/search_many.json") as f:
+        j = json.load(f)
+        search1, search2, search3 = [Search(**s) for s in j["searches"]]
+
     def test_render_no_campers(self):
         results = View.render([
-            (1, [])
+            (self.search1, [])
         ])
         with open(f"{self.datadir}/empty_results.json") as f:
             self.assertEqual(
@@ -19,14 +26,8 @@ class TestView(unittest.TestCase):
             )
 
     def test_render_one_camper(self):
-        camper3 = Camper(**{
-            "id": 3,
-            "latitude": 38.7436883,
-            "longitude": -9.1952226,
-            "price_per_day": 0.0
-        })
         results = View.render([
-            (1, [camper3])
+            (self.search1, [self.camper3])
         ])
         with open(f"{self.datadir}/results_one.json") as f:
             self.assertDictEqual(
@@ -35,28 +36,11 @@ class TestView(unittest.TestCase):
             )
 
     def test_render_many_campers(self):
-        camper1 = Camper(**{
-            "id": 1,
-            "latitude": 44.8637834,
-            "longitude": -0.6211603,
-            "price_per_day": 0.0
-        })
-        camper2 = Camper(**{
-            "id": 2,
-            "latitude": 44.8313035,
-            "longitude": -0.7169664,
-            "price_per_day": 0.0
-        })
-        camper3 = Camper(**{
-            "id": 3,
-            "latitude": 38.7436883,
-            "longitude": -9.1952226,
-            "price_per_day": 0.0
-        })
+        self.maxDiff = None
         results = View.render([
-            (1, [camper3]),
-            (2, [camper1, camper2]),
-            (3, [])
+            (self.search1, [self.camper3]),
+            (self.search2, [self.camper1, self.camper2]),
+            (self.search3, [])
         ])
         with open(f"{self.datadir}/results_many.json") as f:
             self.assertDictEqual(
