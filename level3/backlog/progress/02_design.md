@@ -19,7 +19,7 @@ For the actual assignment this means:
 
 - a new model `Calendars` with its row being potentially linked to `Campers`
 - `Campers` will be modified by adding a new field `calendars` of type `WeakSet`.
-This imply to make models `dataclass` `frozen` so that they can be hashable.
+  This imply to make models `dataclass` `frozen` so that they can be hashable.
 
 - add a new store for the Engine, that will be referenced when accessing
   `Datastores`
@@ -28,6 +28,8 @@ This imply to make models `dataclass` `frozen` so that they can be hashable.
 
 - `DictionaryStore` need a way to know in which other linked `DictionaryStore`
   to reference a row
+  - create a new `ForeignKeyDictionaryStore` NamedTuple `(foreign_store, fk_column_name)`
+  - during upsert modify the `WeakSet` of the corresponding row in the referenced FK store. Should fail to upsert if corresponding row do not exists
 
 ### Important note
 
@@ -42,3 +44,7 @@ all.
 
 I will not dig too deep into that.
 
+### No TDD this time
+
+TDD is taking too much time for this assignment, I will skip that here. Feel
+free to check out level2 for proper testing.
