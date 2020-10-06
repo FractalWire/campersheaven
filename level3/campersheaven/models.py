@@ -89,7 +89,6 @@ class Calendar:
     def isdaterange_overlaps(
             self, start_date: datetime, end_date: datetime) -> bool:
         """Check wether or not Calendar daterange overlaps daterange provided"""
-        print(self, start_date, end_date)
         return any([
             self.start_date <= start_date <= end_date,
             self.start_date <= end_date <= end_date,
