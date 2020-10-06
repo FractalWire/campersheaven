@@ -13,15 +13,18 @@
 
 ### Engine
 
-- new `DictionaryStore` `calendar` *DONE*
+~ - new `DictionaryStore` `calendar` *DONE* ~
+- new `stores` list holding all the `DictionaryStore` *DONE*
 
 ### DataStoreAccess
 
 - new generalist method `populate_store(store, data)` *DONE*
+- new `find_available_campers(store, position, start_date,
+  end_date)` *DONE*
 
 ### DictionaryStore
 
-- FK mechanism:
+- FK mechanism: *DONE*
   - new `ForeignKeyDictionaryStore` `NamedTuple(foreign_store,
     fk_column_name)`
   - `DictionaryStore` as a new `foreign_keys` attribute
