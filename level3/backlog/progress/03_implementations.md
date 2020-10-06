@@ -10,7 +10,7 @@
 
 ### Engine
 
-- new `DictionaryStore` `calendar`
+- new `DictionaryStore` `calendar` *DONE*
 
 ### DataStoreAccess
 
