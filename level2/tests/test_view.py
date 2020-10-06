@@ -39,8 +39,8 @@ class TestView(unittest.TestCase):
         self.maxDiff = None
         results = View.render([
             (self.search1, [self.camper3]),
-            (self.search2, [self.camper1, self.camper2]),
-            (self.search3, [])
+            (self.search2, [self.camper2, self.camper1]),
+            (self.search3, [self.camper2, self.camper1])
         ])
         with open(f"{self.datadir}/results_many.json") as f:
             self.assertDictEqual(

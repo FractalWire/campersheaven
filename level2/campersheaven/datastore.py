@@ -54,7 +54,9 @@ class DataStoreAccess:
 
         return store.filter(lambda camper: camper.point.within(bbox))
 
-    @staticmethod
-    def find_campers_between_dates(store: DataStore, position: Point,
-                                   start_date: datetime, end_date: datetime):
-        pass
+    @classmethod
+    def find_campers_between_dates(
+            cls, store: DataStore, position: Point, start_date: datetime, end_date: datetime
+    ) -> List[Camper]:
+        campers = cls.find_campers_around(store, position)
+        return sorted(campers, key=lambda camper: camper.dates_price(start_date, end_date))

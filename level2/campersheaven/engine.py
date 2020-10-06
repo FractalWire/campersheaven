@@ -5,6 +5,7 @@ import json
 from .datastore import DataStoreAccess
 from .view import View
 from .geometries import Point
+from .models import Search
 
 if TYPE_CHECKING:
     from .datastore import DictionaryStore
@@ -25,17 +26,14 @@ class Engine:
         """Search for matching campers based on a query"""
         d = json.loads(search_query)
 
-        search_campersresults = []
-        for search in d["searches"]:
-            search_id = search["id"]
-            lat = search["latitude"]
-            lon = search["longitude"]
+        view_data = []
+        for search_query in d["searches"]:
+            search = Search(**search_query)
 
-            position = Point(lon, lat)
-            results_camper = DataStoreAccess.find_campers_around(
-                self.store, position)
-            search_campersresult = (search_id, results_camper)
+            campers = DataStoreAccess.find_campers_between_dates(
+                self.store, search.point, search.start_date, search.end_date)
+            searchcampers_tuple = (search, campers)
 
-            search_campersresults.append(search_campersresult)
+            view_data.append(searchcampers_tuple)
 
-        return View.render(search_campersresults)
+        return View.render(view_data)

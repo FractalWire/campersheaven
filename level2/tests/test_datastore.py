@@ -101,9 +101,9 @@ class TestDataStoreAccess(unittest.TestCase):
     camper2 = {"id": 2, "latitude": -1.0, "longitude": -1.0,
                "price_per_day": 2.0}
     camper3 = {"id": 3, "latitude": 1.0, "longitude": 1.0,
-               "price_per_day": 3.0, "weekly_discount": 0.50}
+               "price_per_day": 2.0, "weekly_discount": 0.75}
     camper4 = {"id": 4, "latitude": 1.0, "longitude": 1.0,
-               "price_per_day": 4.0, "weekly_discount": 0.1}
+               "price_per_day": 3.0, "weekly_discount": 0.1}
 
     def setUp(self):
         self.ds = DictionaryStore(Camper)
@@ -159,23 +159,20 @@ class TestDataStoreAccess(unittest.TestCase):
         DataStoreAccess.populate_campers(self.ds, data)
 
         sd = datetime.fromisoformat("2020-01-01")
-        ed = datetime.fromisoformat("2020-01-07")
+        ed = datetime.fromisoformat("2020-01-08")
         results = DataStoreAccess.find_campers_between_dates(
             self.ds, Point(1.0, 1.0), sd, sd)
         self.assertListEqual(results, [
             Camper(**self.camper1),
-            Camper(**self.camper2),
             Camper(**self.camper3),
             Camper(**self.camper4),
         ],
             "test sort one day")
         results = DataStoreAccess.find_campers_between_dates(
-            self.ds, Point(1.0, 1.0))
-        self.assertListEqual(results, [])
+            self.ds, Point(1.0, 1.0), sd, ed)
         self.assertListEqual(results, [
-            Camper(**self.camper1),
             Camper(**self.camper3),
-            Camper(**self.camper2),
+            Camper(**self.camper1),
             Camper(**self.camper4),
         ],
             "test sort days >= 7")
