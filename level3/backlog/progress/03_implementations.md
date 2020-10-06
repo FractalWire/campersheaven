@@ -3,10 +3,13 @@
 
 ### Models
 
+- models are now frozen *DONE*
+
+- new `isavailable(start_date, end_date)` for `Camper` *DONE*
+
 - new model `Calendar` *DONE*
 - new field `calendars` to `Camper` model of type `WeakSet` *DONE*
-
-- models are now frozen
+- new `isdaterange_overlaps(start_date, end_date)` for `Calendar` *DONE*
 
 ### Engine
 

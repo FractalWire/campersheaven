@@ -32,6 +32,13 @@ class Camper:
         discount_rate = (1 - (self.weekly_discount if tdelta.days >= 7 else 0))
         return (self.price_per_day * (tdelta.days + 1)) * discount_rate
 
+    def isavailable(
+            self, start_date: datetime, end_date: datetime) -> bool:
+        """Check wether or not the `Camper` is available between `start_date` and
+        `end_date`"""
+        return all(c.isdaterange_overlaps(start_date, end_date) for c in
+                   self.calendars)
+
 
 @dataclass(frozen=True)
 class Search:
@@ -66,6 +73,28 @@ class Calendar:
     camper_is_available: bool
     start_date: datetime
     end_date: datetime
+
+    def __post_init__(self) -> None:
+        if (isinstance(self.start_date, str)):
+            super().__setattr__(
+                'start_date',
+                datetime.fromisoformat(self.start_date)
+            )
+        if (isinstance(self.end_date, str)):
+            super().__setattr__(
+                'end_date',
+                datetime.fromisoformat(self.end_date)
+            )
+
+    def isdaterange_overlaps(
+            self, start_date: datetime, end_date: datetime) -> bool:
+        """Check wether or not Calendar daterange overlaps daterange provided"""
+        print(self, start_date, end_date)
+        return any([
+            self.start_date <= start_date <= end_date,
+            self.start_date <= end_date <= end_date,
+            start_date < self.start_date and end_date > self.end_date
+        ])
 
 
 """ModelType is a dataclass, can't specify that"""
