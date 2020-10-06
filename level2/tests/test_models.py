@@ -26,7 +26,7 @@ class TestModels(unittest.TestCase):
         })
         self.assertEqual(
             camper1.search_price(search1),
-            85.5
+            171.0
         )
 
         end_date = '2020-01-08'
@@ -39,7 +39,7 @@ class TestModels(unittest.TestCase):
         })
         self.assertEqual(
             camper1.search_price(search2),
-            448.875
+            513.0
         )
 
         camper2 = Camper(**{
@@ -50,5 +50,5 @@ class TestModels(unittest.TestCase):
         })
         self.assertEqual(
             camper2.search_price(search2),
-            598.5
+            684.0
         )

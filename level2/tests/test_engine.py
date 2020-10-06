@@ -35,7 +35,9 @@ class TestEngine(unittest.TestCase):
                 3: Camper(**{
                     "id": 3,
                     "latitude": 38.7436883,
-                    "longitude": -9.1952226
+                    "longitude": -9.1952226,
+                    "price_per_day": 85.5,
+                    "weekly_discount": 0.25
                 })
             })
 
