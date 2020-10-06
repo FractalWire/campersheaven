@@ -27,7 +27,7 @@ class Camper:
 
         tdelta = search.end_date - search.start_date
         discount_rate = (1 - (self.weekly_discount if tdelta.days >= 7 else 0))
-        return (self.price_per_day * tdelta.days) * discount_rate
+        return (self.price_per_day * (tdelta.days + 1)) * discount_rate
 
 
 @dataclass
