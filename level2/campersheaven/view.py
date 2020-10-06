@@ -26,10 +26,11 @@ class View:
     def _render_one(cls, searchcampers_tuple: SearchCampersTuple) -> Dict[str, Any]:
         search, campers = searchcampers_tuple
         search_results = []
+        date_range = (search.start_date, search.end_date)
         for camper in campers:
             search_results.append({
                 "camper_id": camper.id,
-                "price": camper.search_price(search)
+                "price": camper.dates_price(*date_range)
             })
 
         return {

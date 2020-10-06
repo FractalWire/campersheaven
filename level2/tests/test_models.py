@@ -2,20 +2,14 @@ import unittest
 
 from datetime import datetime
 
-from campersheaven.models import Camper, Search
+from campersheaven.models import Camper
 
 
 class TestModels(unittest.TestCase):
-    def test_search_price(self):
-        start_date = '2020-01-01'
-        end_date = '2020-01-02'
-        search1 = Search(**{
-            "id": 1,
-            "latitude": 38.7436883,
-            "longitude": -9.1952226,
-            "start_date": start_date,
-            "end_date": end_date
-        })
+    def test_dates_price(self):
+        start_date = datetime.fromisoformat('2020-01-01')
+        end_date = datetime.fromisoformat('2020-01-02')
+        date_range = (start_date, end_date)
 
         camper1 = Camper(**{
             "id": 3,
@@ -25,20 +19,14 @@ class TestModels(unittest.TestCase):
             "weekly_discount": 0.25
         })
         self.assertEqual(
-            camper1.search_price(search1),
+            camper1.dates_price(*date_range),
             171.0
         )
 
-        end_date = '2020-01-08'
-        search2 = Search(**{
-            "id": 2,
-            "latitude": 38.7436883,
-            "longitude": -9.1952226,
-            "start_date": start_date,
-            "end_date": end_date
-        })
+        end_date = datetime.fromisoformat('2020-01-08')
+        date_range = (start_date, end_date)
         self.assertEqual(
-            camper1.search_price(search2),
+            camper1.dates_price(*date_range),
             513.0
         )
 
@@ -49,6 +37,6 @@ class TestModels(unittest.TestCase):
             "price_per_day": 85.5
         })
         self.assertEqual(
-            camper2.search_price(search2),
+            camper2.dates_price(*date_range),
             684.0
         )

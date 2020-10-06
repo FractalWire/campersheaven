@@ -1,6 +1,7 @@
 from typing import Any
 import unittest
 from dataclasses import dataclass, asdict
+from datetime import datetime
 
 from campersheaven.datastore import DictionaryStore, DataStoreAccess
 from campersheaven.geometries import Point
@@ -157,8 +158,8 @@ class TestDataStoreAccess(unittest.TestCase):
                             self.camper4, self.camper3, self.camper2]}
         DataStoreAccess.populate_campers(self.ds, data)
 
-        sd = "2020-01-01"
-        ed = "2020-01-07"
+        sd = datetime.fromisoformat("2020-01-01")
+        ed = datetime.fromisoformat("2020-01-07")
         results = DataStoreAccess.find_campers_between_dates(
             self.ds, Point(1.0, 1.0), sd, sd)
         self.assertListEqual(results, [

@@ -20,12 +20,12 @@ class Camper:
             self.point = Point(longitude, latitude)
         assert self.point
 
-    def search_price(self, search: Search) -> float:
+    def dates_price(self, start_date: datetime = None, end_date: datetime = None) -> float:
         """Get the price for the `Camper` between `start_date` and `end_date`"""
-        if not search.start_date:
+        if not start_date:
             return self.price_per_day
 
-        tdelta = search.end_date - search.start_date
+        tdelta = end_date - start_date
         discount_rate = (1 - (self.weekly_discount if tdelta.days >= 7 else 0))
         return (self.price_per_day * (tdelta.days + 1)) * discount_rate
 
