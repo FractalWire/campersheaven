@@ -3,8 +3,8 @@
 
 ### Models
 
-- new model `Calendar`
-- new field `calendars` to `Camper` model of type `WeakSet`
+- new model `Calendar` *DONE*
+- new field `calendars` to `Camper` model of type `WeakSet` *DONE*
 
 - models are now frozen
 
