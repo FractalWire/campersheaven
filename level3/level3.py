@@ -2,15 +2,15 @@ import json
 
 from campersheaven.engine import Engine
 from campersheaven.datastore import DictionaryStore
-from campersheaven.models import Camper
+from campersheaven.models import Camper, Calendar
 
 
 def main():
     print("=== WELCOME TO CAMPERSHEAVEN ==")
     print()
 
-    camper_store = DictionaryStore(Camper)
-    calendar_store = DictionaryStore(Camper)
+    camper_store = DictionaryStore("campers", Camper)
+    calendar_store = DictionaryStore("calendars", Calendar)
     engine = Engine(camper_store, calendar_store)
     print("Engine started...")
     print()

@@ -14,7 +14,7 @@
 
 ### DataStoreAccess
 
-- new generalist method `populate_store(store, data)`
+- new generalist method `populate_store(store, data)` *DONE*
 
 ### DictionaryStore
 

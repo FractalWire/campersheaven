@@ -22,7 +22,7 @@ class Engine:
     def insert_data(self, data: ByteString) -> None:
         """Insert new data to the store used by the Engine"""
         d = json.loads(data)
-        DataStoreAccess.populate_campers(self.camper_store, d)
+        DataStoreAccess.populate_store(self.camper_store, d)
 
     def search(self, search_query: ByteString) -> ByteString:
         """Search for matching campers based on a query"""

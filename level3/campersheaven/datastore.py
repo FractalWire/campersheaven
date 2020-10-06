@@ -10,7 +10,8 @@ if TYPE_CHECKING:
 class DictionaryStore:
     """Implement a simple store capable of doing operations comparable to a DB"""
 
-    def __init__(self, model: Callable[[Dict[str, Any]], ModelType]) -> None:
+    def __init__(self, name: str, model: Callable[[Dict[str, Any]], ModelType]) -> None:
+        self.name: str = name
         self.model: Callable[[Dict[str, Any]], ModelType] = model
         self.store: Dict[int, ModelType] = dict()
 
@@ -41,10 +42,10 @@ class DataStoreAccess:
     """Abstraction layer to access various DataStore"""
 
     @staticmethod
-    def populate_campers(store: DataStore, data: Dict[str, Any]) -> None:
+    def populate_store(store: DataStore, data: Dict[str, Any]) -> None:
         """Populate data into store"""
-        campers_data = data["campers"]
-        store.upsert_data(campers_data)
+        store_data = data[store.name]
+        store.upsert_data(store_data)
 
     @staticmethod
     def find_campers_around(store: DataStore, position: Point) -> List[Camper]:
