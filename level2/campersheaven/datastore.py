@@ -53,3 +53,8 @@ class DataStoreAccess:
         bbox = position.bbox((-0.1, 0.1, -0.1, 0.1,))
 
         return store.filter(lambda camper: camper.point.within(bbox))
+
+    @staticmethod
+    def find_campers_between_dates(store: DataStore, position: Point,
+                                   start_date: datetime, end_date: datetime):
+        pass

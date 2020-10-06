@@ -18,7 +18,7 @@ Make the required tests fail:
 
 #### `DictionaryStore` class:
 
-#### `DataStoreAccess` module:
+#### `DataStoreAccess` module: *DONE*
 
 - `test_find_campers_between_dates` for `find_campers_between_dates(store, position, start_date, end_date)`
 
