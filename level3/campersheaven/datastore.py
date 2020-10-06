@@ -74,10 +74,9 @@ class DataStoreAccess:
     """Abstraction layer to access various DataStore"""
 
     @staticmethod
-    def populate_store(store: DataStore, data: Dict[str, Any]) -> None:
+    def populate_store(store: DataStore, data: List[Dict[str, Any]]) -> None:
         """Populate data into store"""
-        store_data = data[store.name]
-        store.upsert_data(store_data)
+        store.upsert_data(data)
 
     @staticmethod
     def find_campers_around(store: DataStore, position: Point) -> List[Camper]:
@@ -94,4 +93,21 @@ class DataStoreAccess:
         """Find the campers in the store that are in a 2 degrees square bounding box
         around position, sorted by price"""
         campers = cls.find_campers_around(store, position)
+        return sorted(campers, key=lambda camper: camper.price(start_date, end_date))
+
+    @classmethod
+    def find_available_campers(
+            cls, store: DataStore, position: Point, start_date: datetime, end_date: datetime
+    ) -> List[Camper]:
+        """Find the available campers in the store that are in a 2 degrees
+        square bounding box around position, sorted by price"""
+        bbox = position.bbox((-0.1, 0.1, -0.1, 0.1,))
+
+        def iswithin_and_available(camper: Camper) -> bool:
+            if start_date:
+                return camper.point.within(bbox) and camper.isavailable(start_date, end_date)
+            return camper.point.within(bbox)
+
+        campers = store.filter(iswithin_and_available)
+
         return sorted(campers, key=lambda camper: camper.price(start_date, end_date))
