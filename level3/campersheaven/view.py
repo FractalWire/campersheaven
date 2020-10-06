@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Tuple, TYPE_CHECKING
+from typing import List, Dict, Any, Tuple, ByteString
 import json
 
 from .models import Search, Camper

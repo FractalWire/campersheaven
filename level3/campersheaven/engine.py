@@ -1,10 +1,9 @@
 from __future__ import annotations
-from typing import Dict, Any, ByteString, TYPE_CHECKING
+from typing import Dict, ByteString, TYPE_CHECKING
 import json
 
 from .datastore import DataStoreAccess
 from .view import View
-from .geometries import Point
 from .models import Search
 
 if TYPE_CHECKING:

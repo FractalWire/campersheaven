@@ -7,13 +7,20 @@ from weakref import WeakSet
 from dataclasses import replace
 
 if TYPE_CHECKING:
+    from datetime import datetime
     from .models import ModelType, Camper
     from .geometries import Point
 
 
 class ForeignKeyDictionaryStore(NamedTuple):
+    """Tuple used to define Foreign key relationship between DictionaryStore"""
+
+    """The column name where the id of the foreign store is"""
     id: str
+    """The DictionaryStore we want to link with"""
     store: DictionaryStore
+    """The column name of the foreign DictionaryStore where we want to reference
+    a row"""
     store_column: str
 
 
@@ -55,7 +62,7 @@ class DictionaryStore:
         for fk_ds in self.foreign_keys:
             try:
                 update_fk_link(fk_ds, self.store[id_])
-            except:
+            except Exception:
                 self.store.pop(id_)
                 print("update_fk_link failed")
                 raise

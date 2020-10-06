@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, Set, TYPE_CHECKING
+from typing import Union, Set
 from dataclasses import dataclass, InitVar, field
 from datetime import datetime
 from weakref import WeakSet
