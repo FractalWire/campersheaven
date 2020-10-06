@@ -23,7 +23,7 @@ class Camper:
         super().__setattr__('point', Point(longitude, latitude))
         assert self.point.valid()
 
-    def dates_price(self, start_date: datetime = None, end_date: datetime = None) -> float:
+    def price(self, start_date: datetime = None, end_date: datetime = None) -> float:
         """Get the price for the `Camper` between `start_date` and `end_date`"""
         if not start_date:
             return self.price_per_day

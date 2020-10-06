@@ -30,7 +30,7 @@ class View:
         for camper in campers:
             search_results.append({
                 "camper_id": camper.id,
-                "price": camper.dates_price(*date_range)
+                "price": camper.price(*date_range)
             })
 
         return {
