@@ -117,43 +117,40 @@ class TestDataStoreAccess(unittest.TestCase):
         data = {"campers": [self.camper1, self.camper2]}
         DataStoreAccess.populate_campers(self.ds, data)
 
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(1.0, 1.0))
-        self.assertListEqual([Camper(**self.camper1)], results)
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(1.09, 1.09))
-        self.assertListEqual([Camper(**self.camper1)], results)
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(0.91, 0.91))
-        self.assertListEqual([Camper(**self.camper1)], results)
+        pos_points = [
+            Point(1.0, 1.0),
+            Point(1.1, 1.1),
+            Point(0.9, 0.9),
+            Point(1.1, 0.9),
+            Point(0.9, 1.1),
+        ]
+        expected_res = [Camper(**self.camper1)]
+        for p in pos_points:
+            results = DataStoreAccess.find_campers_around(self.ds, p)
+            self.assertListEqual(results, expected_res, f"failed for {p}")
 
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(1.09, 0.91))
-        self.assertListEqual([Camper(**self.camper1)], results)
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(0.91, 1.09))
-        self.assertListEqual([Camper(**self.camper1)], results)
-
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(-1.0, -1.0))
-        self.assertListEqual([Camper(**self.camper2)], results)
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(-1.09, -0.91))
-        self.assertListEqual([Camper(**self.camper2)], results)
+        neg_points = [
+            Point(-1.0, -1.0),
+            Point(-1.1, -0.9)
+        ]
+        expected_res = [Camper(**self.camper2)]
+        for p in neg_points:
+            results = DataStoreAccess.find_campers_around(self.ds, p)
+            self.assertListEqual(results, expected_res, f"failed for {p}")
 
     def test_find_campers_around_nomatch(self):
         data = {"campers": [self.camper1, self.camper2]}
         DataStoreAccess.populate_campers(self.ds, data)
 
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(0.0, 0.0))
-        self.assertListEqual(results, [])
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(1.0, 0.0))
-        self.assertListEqual(results, [])
-        results = DataStoreAccess.find_campers_around(
-            self.ds, Point(0.0, 1.0))
-        self.assertListEqual(results, [])
+        nomatch_points = [
+            Point(0.0, 0.0),
+            Point(1.0, 0.0),
+            Point(0.0, 1.0),
+        ]
+        expected_res = []
+        for p in nomatch_points:
+            results = DataStoreAccess.find_campers_around(self.ds, p)
+            self.assertListEqual(results, expected_res, f"failed for {p}")
 
     def test_find_campers_between_dates(self):
         data = {"campers": [self.camper1,
