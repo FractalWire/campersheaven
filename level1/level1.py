@@ -25,7 +25,21 @@ def main():
     print("Searching for the right campers now...")
     print()
     search_results_json = engine.search(search_queries)
-    print(json.dumps(json.loads(search_results_json), indent=4))
+
+    with open('data/results.json', 'w+') as f, open('expected_results.json') as f_exp:
+        indented_results = json.dumps(json.loads(search_results_json), indent=4)
+        f.write(indented_results)
+        f.write('\n')
+        print(indented_results)
+
+        f.seek(0)
+        f_b = f.read()
+        f_exp_b = f_exp.read()
+
+        print(f_b)
+        print(f_exp_b)
+        assert f_b == f_exp_b
+
 
     print()
     print("=== GOOD BYE ===")
