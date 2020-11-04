@@ -1,0 +1,6 @@
+-r common.txt
+
+pynvim
+autopep8
+flake8
+mypy
