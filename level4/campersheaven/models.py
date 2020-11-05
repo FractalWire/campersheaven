@@ -90,8 +90,8 @@ class Calendar:
             self, start_date: datetime, end_date: datetime) -> bool:
         """Check wether or not Calendar daterange overlaps daterange provided"""
         return any([
-            self.start_date <= start_date <= end_date,
-            self.start_date <= end_date <= end_date,
+            self.start_date <= start_date <= self.end_date,
+            self.start_date <= end_date <= self.end_date,
             start_date < self.start_date and end_date > self.end_date
         ])
 
